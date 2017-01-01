@@ -1,6 +1,10 @@
+plugins {
+  id 'org.springframework.boot' version '1.4.3.RELEASE'
+}
 subprojects {
   apply plugin: 'java'
   apply plugin: 'eclipse'
+  apply plugin: 'org.springframework.boot'
   repositories {
     jcenter()
   }
