@@ -1,0 +1,11 @@
+zuul:
+  routes:
+    account:
+        url: http://localhost:8080
+        
+ribbon:
+  eureka:
+    enabled: false
+          
+server:
+  port: 8090
