@@ -1,5 +1,5 @@
 package com.myms.cloud.example.application;
 
-public class AccountFacade {
+public class AccountUsecase {
 
 }
