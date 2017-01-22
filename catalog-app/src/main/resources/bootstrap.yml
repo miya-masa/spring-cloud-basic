@@ -1,0 +1,3 @@
+# catalog-app
+server:
+  port: 8081
