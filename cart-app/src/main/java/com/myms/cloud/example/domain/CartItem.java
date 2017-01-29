@@ -10,4 +10,17 @@ public class CartItem {
 
     private Item item;
 
+    public boolean equalsItem(Item item) {
+        return item.equals(item);
+    }
+
+    public void incrementQuantity() {
+        quantity = quantity++;
+    }
+
+    public CartItem(Item item) {
+        this.item = item;
+        this.quantity = 1;
+    }
+
 }

@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.data.annotation.Id;
 
@@ -17,43 +18,22 @@ public class Cart implements Serializable {
     @Id
     private String id;
 
+    // TODO to first collection
     private List<CartItem> cartItems;
 
-    private final Map<String, CartItem> itemMap = Collections.synchronizedMap(new HashMap<String, CartItem>());
-    private final List<CartItem> itemList = new ArrayList<CartItem>();
-
-    public Iterator<CartItem> getCartItems() {
-        return itemList.iterator();
-    }
-
-    public List<CartItem> getCartItemList() {
-        return itemList;
-    }
-
     public int getNumberOfItems() {
-        return itemList.size();
+        return cartItems.size();
     }
 
-    public Iterator<CartItem> getAllCartItems() {
-        return itemList.iterator();
+    public void addItem(Item item, boolean isInStock) {
+        Optional<CartItem> cartItemOpt = cartItems.stream().filter(e -> e.equalsItem(item)).findAny();
+        if (cartItemOpt.isPresent()) {
+            cartItemOpt.get().incrementQuantity();
+            return;
+        }
+        CartItem cartItem = new CartItem(item);
+        cartItems.add(cartItem);
     }
-
-    public boolean containsItemId(String itemId) {
-        return itemMap.containsKey(itemId);
-    }
-
-    // public void addItem(Item item, boolean isInStock) {
-    // CartItem cartItem = (CartItem) itemMap.get(item.getItemId());
-    // if (cartItem == null) {
-    // cartItem = new CartItem();
-    // cartItem.setItem(item);
-    // cartItem.setQuantity(0);
-    // cartItem.setInStock(isInStock);
-    // itemMap.put(item.getItemId(), cartItem);
-    // itemList.add(cartItem);
-    // }
-    // cartItem.incrementQuantity();
-    // }
 
     // public Item removeItemById(String itemId) {
     // CartItem cartItem = (CartItem) itemMap.remove(itemId);
