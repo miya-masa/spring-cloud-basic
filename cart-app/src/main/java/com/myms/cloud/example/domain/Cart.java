@@ -1,12 +1,7 @@
 package com.myms.cloud.example.domain;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.data.annotation.Id;
@@ -25,7 +20,7 @@ public class Cart implements Serializable {
         return cartItems.size();
     }
 
-    public void addItem(Item item, boolean isInStock) {
+    public void addItem(Item item) {
         Optional<CartItem> cartItemOpt = cartItems.stream().filter(e -> e.equalsItem(item)).findAny();
         if (cartItemOpt.isPresent()) {
             cartItemOpt.get().incrementQuantity();

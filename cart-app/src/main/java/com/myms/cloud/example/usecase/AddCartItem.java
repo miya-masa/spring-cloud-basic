@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.myms.cloud.example.domain.Cart;
-import com.myms.cloud.example.domain.CartItem;
 import com.myms.cloud.example.domain.CartRepository;
+import com.myms.cloud.example.domain.Item;
 
 @Service
 public class AddCartItem {
@@ -13,8 +13,11 @@ public class AddCartItem {
     @Autowired
     private CartRepository cartRepository;
 
-    public Cart addItem(CartItem item) {
-        // cartRepository.load();
-        return new Cart();
+    public Cart addItem(Item item) {
+        // TODO get user id
+        Cart cart = cartRepository.loadCart("userId");
+        cart.addItem(item);
+        cartRepository.loadCart("userId");
+        return cart;
     }
 }
