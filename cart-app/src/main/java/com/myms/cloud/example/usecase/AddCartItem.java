@@ -1,6 +1,7 @@
 package com.myms.cloud.example.usecase;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.myms.cloud.example.domain.Cart;
@@ -14,10 +15,10 @@ public class AddCartItem {
     private CartRepository cartRepository;
 
     public Cart addItem(Item item) {
-        // TODO get user id
-        Cart cart = cartRepository.loadCart("userId");
+        String userId = SecurityContextHolder.getContext().getAuthentication().getName();
+        Cart cart = cartRepository.loadCart(userId);
         cart.addItem(item);
-        cartRepository.loadCart("userId");
+        cartRepository.save(cart);
         return cart;
     }
 }
