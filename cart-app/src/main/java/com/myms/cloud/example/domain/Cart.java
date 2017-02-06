@@ -30,15 +30,16 @@ public class Cart implements Serializable {
         cartItems.add(cartItem);
     }
 
-    // public Item removeItemById(String itemId) {
-    // CartItem cartItem = (CartItem) itemMap.remove(itemId);
-    // if (cartItem == null) {
-    // return null;
-    // } else {
-    // itemList.remove(cartItem);
-    // return cartItem.getItem();
-    // }
-    // }
+    public Item removeItemById(String itemId) {
+        // CartItem cartItem = (CartItem) itemMap.remove(itemId);
+        // if (cartItem == null) {
+        // return null;
+        // } else {
+        // itemList.remove(cartItem);
+        // return cartItem.getItem();
+        // }
+        return null;
+    }
     //
     // public void incrementQuantityByItemId(String itemId) {
     // CartItem cartItem = (CartItem) itemMap.get(itemId);
