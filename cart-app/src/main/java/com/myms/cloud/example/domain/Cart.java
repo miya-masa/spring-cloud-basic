@@ -1,8 +1,9 @@
 package com.myms.cloud.example.domain;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.springframework.data.annotation.Id;
 
@@ -14,31 +15,20 @@ public class Cart implements Serializable {
     private String id;
 
     // TODO to first collection
-    private List<CartItem> cartItems;
+    private Map<String, CartItem> cartItems = new ConcurrentHashMap<>();
 
     public int getNumberOfItems() {
         return cartItems.size();
     }
 
     public void addItem(Item item) {
-        Optional<CartItem> cartItemOpt = cartItems.stream().filter(e -> e.equalsItem(item)).findAny();
-        if (cartItemOpt.isPresent()) {
-            cartItemOpt.get().incrementQuantity();
-            return;
-        }
-        CartItem cartItem = new CartItem(item);
-        cartItems.add(cartItem);
+        CartItem cartItem = cartItems.getOrDefault(item.getId(), new CartItem(item));
+        cartItem.incrementQuantity();
+        cartItems.put(cartItem.getItemId(), cartItem);
     }
 
-    public Item removeItemById(String itemId) {
-        // CartItem cartItem = (CartItem) itemMap.remove(itemId);
-        // if (cartItem == null) {
-        // return null;
-        // } else {
-        // itemList.remove(cartItem);
-        // return cartItem.getItem();
-        // }
-        return null;
+    public Optional<Item> removeItemById(String itemId) {
+        return Optional.ofNullable(cartItems.remove(itemId)).map(CartItem::getItem);
     }
     //
     // public void incrementQuantityByItemId(String itemId) {

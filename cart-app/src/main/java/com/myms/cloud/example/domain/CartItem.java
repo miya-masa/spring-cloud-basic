@@ -23,4 +23,8 @@ public class CartItem {
         this.quantity = 1;
     }
 
+    public String getItemId() {
+        return this.item.getId();
+    }
+
 }
