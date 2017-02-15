@@ -30,11 +30,11 @@ public class Cart implements Serializable {
     public Optional<Item> removeItemById(String itemId) {
         return Optional.ofNullable(cartItems.remove(itemId)).map(CartItem::getItem);
     }
-    //
-    // public void incrementQuantityByItemId(String itemId) {
-    // CartItem cartItem = (CartItem) itemMap.get(itemId);
-    // cartItem.incrementQuantity();
-    // }
+
+    public void incrementQuantityByItemId(String itemId) {
+        CartItem cartItem = cartItems.get(itemId);
+        cartItem.incrementQuantity();
+    }
     //
     // public void setQuantityByItemId(String itemId, int quantity) {
     // CartItem cartItem = (CartItem) itemMap.get(itemId);
